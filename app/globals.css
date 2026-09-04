@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Dark-only design: single theme, no light-mode swap. */
+  --ground: 10 14 19;         /* deep navy carbon */
+  --panel: 15 20 27;
+  --panel-2: 20 26 34;
+  --ink: 231 236 243;         /* cool ivory */
+  --ink-2: 140 151 166;
+  --ink-3: 90 100 115;
+  --rule: 27 34 44;
+  --rule-strong: 42 51 65;
+  --accent: 212 169 81;       /* burnished amber — private-banking brass */
+  --accent-2: 232 192 121;
+  --signal: 34 197 94;        /* status pip only */
+  --warn: 239 68 68;
+  color-scheme: dark;
+}
+
+* { -webkit-tap-highlight-color: transparent; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: rgb(var(--ground));
+  color: rgb(var(--ink));
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-feature-settings: "ss01" on, "cv11" on;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Ambient monitor phosphor vignette */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgb(var(--accent) / 0.05) 0%, transparent 55%),
+    radial-gradient(140% 110% at 50% 120%, rgb(var(--accent) / 0.03) 0%, transparent 60%);
+}
+
+/* Very subtle scanline mesh */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 3px,
+    rgb(255 255 255 / 0.012) 3px,
+    rgb(255 255 255 / 0.012) 4px
+  );
+}
+
+.page-shell { position: relative; z-index: 1; }
+
+::selection { background: rgb(var(--accent)); color: rgb(var(--ground)); }
+
+/* Utility classes */
+.mono   { font-family: var(--font-mono), ui-monospace, monospace; font-feature-settings: "zero" on; }
+.num    { font-variant-numeric: tabular-nums lining-nums; }
+.eyebrow {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(var(--ink-3));
+  font-weight: 500;
+}
+
+/* Focus ring */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid rgb(var(--accent));
+  outline-offset: 3px;
+}
+
+/* Ticker marquee (footer) */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.ticker-track { animation: ticker-scroll 55s linear infinite; }
+
+/* Terminal cursor blink */
+@keyframes cursor-blink {
+  0%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0; }
+}
+.cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  background: currentColor;
+  vertical-align: -0.14em;
+  margin-left: 4px;
+  animation: cursor-blink 1.2s steps(1) infinite;
+}
+
+/* Signal dot pulse */
+@keyframes signal-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(var(--signal) / 0.55); }
+  50%      { box-shadow: 0 0 0 6px rgb(var(--signal) / 0); }
+}
+.signal-dot { animation: signal-pulse 2s ease-in-out infinite; }
+
+/* Card lift */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .ticker-track,
+  .cursor,
+  .signal-dot { animation: none !important; }
+}
