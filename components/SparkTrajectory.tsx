@@ -17,7 +17,7 @@ export function SparkTrajectory() {
     const y =
       H - PAD_Y_BOT -
       (p.y / maxY) * (H - PAD_Y_TOP - PAD_Y_BOT);
-    return { x, y, ...p };
+    return { ...p, x, y };
   });
 
   // Smooth line path
