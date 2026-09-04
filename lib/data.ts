@@ -164,8 +164,8 @@ export const JOBS: Job[] = [
     company: "OneTap Technology",
     companyUrl: "https://onetap.et/",
     place: "Addis Ababa",
-    from: "09 / 2022",
-    to: "01 / 2025",
+    from: "09 / 2025",
+    to: "11 / 2025",
     industry: "Digital Banking · USSD · KYC",
     bullets: [
       {
@@ -339,7 +339,7 @@ export const TRACK_RECORD = [
 
 /* Career trajectory sparkline data */
 export const TRAJECTORY: { year: string; label: string; role: string; y: number }[] = [
-  { year: "2022", label: "OneTap · Backend", role: "Go banking systems, USSD, KYC", y: 1 },
+  { year: "2025", label: "OneTap · Backend", role: "Go banking systems, USSD, KYC", y: 1 },
   { year: "2024", label: "Eskalate", role: "Go REST + Clean Architecture", y: 2 },
   { year: "2025", label: "Twitter Sentiment · Receipt OCR", role: "ML + full-stack services", y: 3 },
   { year: "2025", label: "iCog Labs", role: "FastAPI, 1,000+ knowledge graphs", y: 4 },
